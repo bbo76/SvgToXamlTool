@@ -11,11 +11,11 @@ jobs:
     steps:
     # Checkout du code source
     - name: Checkout repository
-      uses: actions/checkout@v3
-
+      uses: actions/checkout@v4.2.1
+      
     # Installation de .NET
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4.2.1
       with:
         dotnet-version: '8.0.x'
 
@@ -33,7 +33,7 @@ jobs:
 
     # Archive les fichiers publiés pour les joindre à la release
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4.2.1
       with:
-        name: WPF-Release
+        name: SvgToXamlTool
         path: ./src/SvgToXamlTool.App/bin/Release/net8.0-windows/publish/
