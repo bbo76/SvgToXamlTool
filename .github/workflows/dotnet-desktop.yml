@@ -41,4 +41,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: WPF-Release
-        path: main/src/SvgToXamlTool.App/bin/Release/net8.0-windows/publish/
+        path: bin/Release/net8.0-windows/publish/
