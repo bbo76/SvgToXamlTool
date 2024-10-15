@@ -8,15 +8,14 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-
+    defaults:
+      run:
+        working-directory: ./src/SvgToXamlTool.App
+        
     steps:
     # Checkout du code source
     - name: Checkout repository
       uses: actions/checkout@v3
-
-    # Changer de répertoire vers le dossier contenant le projet .NET
-    - name: Set up working directory
-      run: cd src/SvgToXamlTool.App
 
     # Installation de .NET
     - name: Setup .NET Core
@@ -41,4 +40,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: WPF-Release
-        path: bin/Release/net8.0-windows/publish/
+        path: bin/Release/net8.0-windows/publish/*
