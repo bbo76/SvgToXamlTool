@@ -1,0 +1,42 @@
+name: Build and Release WPF App
+
+# Le workflow se déclenche sur chaque push dans la branche 'main'
+on:
+  push:
+    branches:
+      - main
+
+# Le workflow s'exécute sur un environnement Windows
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    # Checkout du code source
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Installation de .NET (modifie la version selon celle utilisée dans ton projet)
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x' # Modifie cette version si nécessaire
+
+    # Restaurer les dépendances
+    - name: Restore dependencies
+      run: dotnet restore
+
+    # Compilation en mode Release
+    - name: Build solution
+      run: dotnet build --configuration Release
+
+    # Publier l'application WPF en Release pour obtenir l'exécutable
+    - name: Publish executable
+      run: dotnet publish -c Release -r win-x64 --self-contained
+
+    # Archive les fichiers publiés pour les joindre à la release
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: WPF-Release
+        path: ./bin/Release/net8.0/win-x64/publish/
