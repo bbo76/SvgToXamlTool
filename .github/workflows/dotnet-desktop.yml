@@ -26,7 +26,7 @@ jobs:
 
     # Restaurer les dépendances
     - name: Restore dependencies
-      run: dotnet restore main/src/SvgToXamlTool.App
+      run: dotnet restore src/SvgToXamlTool.App
 
     # Compilation en mode Release
     - name: Build solution
