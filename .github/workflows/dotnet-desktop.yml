@@ -1,12 +1,10 @@
 name: Build and Release WPF App
 
-# Le workflow se déclenche sur chaque push dans la branche 'main'
 on:
   push:
     branches:
       - main
 
-# Le workflow s'exécute sur un environnement Windows
 jobs:
   build:
     runs-on: windows-latest
@@ -16,27 +14,31 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # Installation de .NET (modifie la version selon celle utilisée dans ton projet)
+    # Changer de répertoire vers le dossier contenant le projet .NET
+    - name: Set up working directory
+      run: cd main/src/SvgToXamlTool.App
+
+    # Installation de .NET
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '8.0.x' # Modifie cette version si nécessaire
+        dotnet-version: '8.0.x'
 
     # Restaurer les dépendances
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore main/src/SvgToXamlTool.App
 
     # Compilation en mode Release
     - name: Build solution
-      run: dotnet build --configuration Release
+      run: dotnet build main/src/SvgToXamlTool.App --configuration Release
 
-    # Publier l'application WPF en Release pour obtenir l'exécutable
+    # Publier l'application WPF en Framework-dependent pour obtenir un exécutable plus léger
     - name: Publish executable
-      run: dotnet publish -c Release -r win-x64 --self-contained
+      run: dotnet publish main/src/SvgToXamlTool.App -c Release --framework net8.0-windows --self-contained false
 
     # Archive les fichiers publiés pour les joindre à la release
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
         name: WPF-Release
-        path: ./bin/Release/net8.0/win-x64/publish/
+        path: main/src/SvgToXamlTool.App/bin/Release/net8.0-windows/publish/
