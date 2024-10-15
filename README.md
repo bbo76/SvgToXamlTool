@@ -1,2 +1,2 @@
 # SvgToXamlTool
-Tool to convert an SVG file to a WPF ControlTemplate
+Tool to convert a SVG file to a WPF ControlTemplate
