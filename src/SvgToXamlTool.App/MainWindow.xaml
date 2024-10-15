@@ -1,0 +1,96 @@
+﻿<Window x:Class="DrawingImageToCanvas.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:DrawingImageToCanvas.App"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+        Title="SVG to XAML"
+        Width="800"
+        Height="550"
+        mc:Ignorable="d">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="1">
+                <Border Width="110"
+                        Height="110"
+                        Margin="5"
+                        BorderBrush="Black"
+                        BorderThickness="1"
+                        CornerRadius="10">
+                    <Button Background="Transparent"
+                            BorderBrush="Transparent"
+                            BorderThickness="0"
+                            Click="ConvertButton_Click"
+                            Cursor="Hand"
+                            ToolTip="Importer un .svg">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius"
+                                        Value="10" />
+                            </Style>
+                        </Button.Resources>
+                        <Viewbox Width="100"
+                                 Height="100">
+                            <svgc:SvgBitmap x:Name="SvgBitmap"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center" />
+                        </Viewbox>
+                    </Button>
+                </Border>
+                <TextBlock HorizontalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="SVG" />
+            </StackPanel>
+
+            <TextBlock Grid.Column="2"
+                       VerticalAlignment="Center"
+                       FontSize="16"
+                       FontWeight="ExtraBold"
+                       Text="-------&gt;" />
+
+            <StackPanel Grid.Column="3">
+                <Border Width="110"
+                        Height="110"
+                        Margin="5"
+                        BorderBrush="Black"
+                        BorderThickness="1"
+                        CornerRadius="10">
+                    <Viewbox Width="100"
+                             Height="100">
+                        <ContentControl x:Name="SvgContentControl"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center" />
+                    </Viewbox>
+                </Border>
+                <TextBlock HorizontalAlignment="Center"
+                           FontSize="16"
+                           FontWeight="Bold"
+                           Text="ControlTemplate" />
+            </StackPanel>
+        </Grid>
+
+        <TextBox Name="ResultTextBox"
+                 Grid.Row="1"
+                 Height="300"
+                 Margin="0,10,0,0"
+                 AcceptsReturn="True"
+                 IsReadOnly="True"
+                 TextWrapping="Wrap"
+                 VerticalScrollBarVisibility="Auto" />
+    </Grid>
+</Window>
