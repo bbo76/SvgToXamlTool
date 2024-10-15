@@ -16,7 +16,7 @@ jobs:
 
     # Changer de répertoire vers le dossier contenant le projet .NET
     - name: Set up working directory
-      run: cd main/src/SvgToXamlTool.App
+      run: cd src/SvgToXamlTool.App
 
     # Installation de .NET
     - name: Setup .NET Core
@@ -26,15 +26,15 @@ jobs:
 
     # Restaurer les dépendances
     - name: Restore dependencies
-      run: dotnet restore src/SvgToXamlTool.App
+      run: dotnet restore
 
     # Compilation en mode Release
     - name: Build solution
-      run: dotnet build main/src/SvgToXamlTool.App --configuration Release
+      run: dotnet build --configuration Release
 
     # Publier l'application WPF en Framework-dependent pour obtenir un exécutable plus léger
     - name: Publish executable
-      run: dotnet publish main/src/SvgToXamlTool.App -c Release --framework net8.0-windows --self-contained false
+      run: dotnet publish -c Release --framework net8.0-windows --self-contained false
 
     # Archive les fichiers publiés pour les joindre à la release
     - name: Upload artifact
