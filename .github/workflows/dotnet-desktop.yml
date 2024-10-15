@@ -8,10 +8,6 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    defaults:
-      run:
-        working-directory: ./src/SvgToXamlTool.App
-        
     steps:
     # Checkout du code source
     - name: Checkout repository
@@ -25,19 +21,19 @@ jobs:
 
     # Restaurer les dépendances
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ./src/SvgToXamlTool.App
 
     # Compilation en mode Release
     - name: Build solution
-      run: dotnet build --configuration Release
+      run: dotnet build ./src/SvgToXamlTool.App --configuration Release
 
     # Publier l'application WPF en Framework-dependent pour obtenir un exécutable plus léger
     - name: Publish executable
-      run: dotnet publish -c Release --framework net8.0-windows --self-contained false
+      run: dotnet publish ./src/SvgToXamlTool.App -c Release --framework net8.0-windows --self-contained false
 
     # Archive les fichiers publiés pour les joindre à la release
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
         name: WPF-Release
-        path: bin/Release/net8.0-windows/publish/*
+        path: ./src/SvgToXamlTool.App/bin/Release/net8.0-windows/publish/
