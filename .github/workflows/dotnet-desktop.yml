@@ -15,7 +15,7 @@ jobs:
       
     # Installation de .NET
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v4.2.1
+      uses: actions/setup-dotnet@v4.0.1
       with:
         dotnet-version: '8.0.x'
 
@@ -33,7 +33,7 @@ jobs:
 
     # Archive les fichiers publiés pour les joindre à la release
     - name: Upload artifact
-      uses: actions/upload-artifact@v4.2.1
+      uses: actions/upload-artifact@v4.4.3
       with:
         name: SvgToXamlTool
         path: ./src/SvgToXamlTool.App/bin/Release/net8.0-windows/publish/
